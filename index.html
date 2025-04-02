@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fee Management System - Admin Panel</title>
-    <!-- Font Awesome for icons -->
+    <title>Fee Management System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -39,7 +38,6 @@
             width: 250px;
             background: var(--secondary-color);
             color: white;
-            transition: all 0.3s;
         }
         
         .sidebar-header {
@@ -57,6 +55,7 @@
             padding: 10px 20px;
             border-left: 3px solid transparent;
             transition: all 0.3s;
+            cursor: pointer;
         }
         
         .sidebar-menu li:hover {
@@ -99,18 +98,6 @@
             border-radius: 5px;
         }
         
-        .user-info {
-            display: flex;
-            align-items: center;
-        }
-        
-        .user-info img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-        
         /* Dashboard Cards */
         .dashboard-cards {
             display: grid;
@@ -124,160 +111,24 @@
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
         }
         
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .card-header {
+        /* Tabs */
+        .tabs {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
         }
         
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: white;
-        }
-        
-        .card-icon.primary {
-            background: var(--primary-color);
-        }
-        
-        .card-icon.success {
-            background: var(--success-color);
-        }
-        
-        .card-icon.warning {
-            background: var(--warning-color);
-        }
-        
-        .card-icon.danger {
-            background: var(--danger-color);
-        }
-        
-        .card-body h3 {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-        
-        .card-body p {
-            color: #777;
-        }
-        
-        /* Tables */
-        .table-container {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 30px;
-            overflow-x: auto;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-        
-        th {
-            background: var(--secondary-color);
-            color: white;
-        }
-        
-        tr:hover {
-            background: #f9f9f9;
-        }
-        
-        .status {
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        
-        .status.paid {
-            background: #d4edda;
-            color: #155724;
-        }
-        
-        .status.pending {
-            background: #fff3cd;
-            color: #856404;
-        }
-        
-        .status.overdue {
-            background: #f8d7da;
-            color: #721c24;
-        }
-        
-        /* Buttons */
-        .btn {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 4px;
+        .tab {
+            padding: 10px 20px;
             cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
+            border-bottom: 3px solid transparent;
         }
         
-        .btn i {
-            margin-right: 5px;
-        }
-        
-        .btn-primary {
-            background: var(--primary-color);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: #2980b9;
-        }
-        
-        .btn-success {
-            background: var(--success-color);
-            color: white;
-        }
-        
-        .btn-success:hover {
-            background: #27ae60;
-        }
-        
-        .btn-danger {
-            background: var(--danger-color);
-            color: white;
-        }
-        
-        .btn-danger:hover {
-            background: #c0392b;
-        }
-        
-        .btn-warning {
-            background: var(--warning-color);
-            color: white;
-        }
-        
-        .btn-warning:hover {
-            background: #d35400;
+        .tab.active {
+            border-bottom: 3px solid var(--primary-color);
+            font-weight: bold;
         }
         
         /* Forms */
@@ -309,51 +160,57 @@
             font-size: 14px;
         }
         
-        .form-row {
-            display: flex;
-            gap: 15px;
+        /* Buttons */
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
         }
         
-        .form-row .form-group {
-            flex: 1;
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: var(--secondary-color);
+            color: white;
+        }
+        
+        /* Student Management Tab */
+        #student-management {
+            display: none;
         }
         
         /* Responsive */
-        @media (max-width: 992px) {
+        @media (max-width: 768px) {
             .container {
                 flex-direction: column;
             }
             
             .sidebar {
                 width: 100%;
-                height: auto;
-            }
-            
-            .sidebar-menu {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .sidebar-menu li {
-                flex: 1 0 150px;
-                text-align: center;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .dashboard-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-            
-            th, td {
-                padding: 8px;
-                font-size: 14px;
             }
         }
     </style>
@@ -367,141 +224,171 @@
                 <p>Admin Panel</p>
             </div>
             <ul class="sidebar-menu">
-                <li class="active">
-                    <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <li class="active" onclick="showTab('dashboard')">
+                    <a><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                </li>
+                <li onclick="showTab('student-management')">
+                    <a><i class="fas fa-users"></i> Students</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fas fa-users"></i> Students</a>
+                    <a><i class="fas fa-file-invoice-dollar"></i> Fee Payments</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fas fa-file-invoice-dollar"></i> Fee Payments</a>
+                    <a><i class="fas fa-chart-bar"></i> Reports</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fas fa-chart-bar"></i> Reports</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fas fa-cog"></i> Settings</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <a><i class="fas fa-cog"></i> Settings</a>
                 </li>
             </ul>
         </div>
         
         <!-- Main Content -->
         <div class="main-content">
-            <div class="header">
-                <h2>Dashboard</h2>
-                <div class="user-info">
-                    <img src="https://via.placeholder.com/40" alt="Admin">
-                    <span>Admin User</span>
-                </div>
-            </div>
-            
-            <!-- Dashboard Cards -->
-            <div class="dashboard-cards">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Total Fees</h3>
-                        <div class="card-icon primary">
-                            <i class="fas fa-rupee-sign"></i>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h3>₹20,45,800</h3>
-                        <p>This month: ₹2,70,000</p>
-                    </div>
+            <!-- Dashboard Tab -->
+            <div id="dashboard">
+                <div class="header">
+                    <h2>Dashboard</h2>
                 </div>
                 
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Pending Fees</h3>
-                        <div class="card-icon warning">
-                            <i class="fas fa-clock"></i>
-                        </div>
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>Total Fees Collected</h3>
+                        <p>₹2,45,800</p>
                     </div>
-                    <div class="card-body">
-                        <h3>₹4,52,000</h3>
-                        <p>From 23 students</p>
+                    <div class="card">
+                        <h3>Pending Payments</h3>
+                        <p>₹54,300</p>
                     </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
+                    <div class="card">
                         <h3>Total Students</h3>
-                        <div class="card-icon success">
-                            <i class="fas fa-users"></i>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h3>156</h3>
-                        <p>15 new this month</p>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Overdue Fees</h3>
-                        <div class="card-icon danger">
-                            <i class="fas fa-exclamation-circle"></i>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h3>₹1,54,000</h3>
-                        <p>From 8 students</p>
+                        <p>156</p>
                     </div>
                 </div>
             </div>
             
-            <!-- Recent Payments Table -->
-            <div class="table-container">
-                <div class="table-header">
-                    <h3>Recent Fee Payments</h3>
-                    <div class="table-actions">
-                        <button class="btn btn-success"><i class="fas fa-plus"></i> Add Payment</button>
-                        <button class="btn btn-primary"><i class="fas fa-download"></i> Export</button>
-                    </div>
+            <!-- Student Management Tab -->
+            <div id="student-management">
+                <div class="header">
+                    <h2>Student Management</h2>
+                    <button class="btn btn-primary" onclick="showStudentForm()">
+                        <i class="fas fa-plus"></i> Add Student
+                    </button>
                 </div>
                 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Receipt No.</th>
-                            <th>Student Name</th>
-                            <th>Amount (₹)</th>
-                            <th>Payment Date</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#REC-2023-001</td>
-                            <td>John Doe</td>
-                            <td>₹20,800</td>
-                            <td>2023-05-15</td>
-                            <td><span class="status paid">Paid</span></td>
-                            <td>
-                                <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></button>
-                                <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>#REC-2023-002</td>
-                            <td>Jane Smith</td>
-                            <td>₹25,000</td>
-                            <td>2023-05-14</td>
-                            <td><span class="status paid">Paid</span></td>
-                            <td>
-                                <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></button>
-                                <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>#REC-2023-003</td>
-                            <td>Robert Johnson</td>
-                            <td>₹16,600</td>
-                            <td>2023-05-12</td>
-                            <td><span class="status pending">Pending</span></td>
-                            <td>
-                                <button
+                <!-- Student Form (Initially Hidden) -->
+                <div id="student-form" class="form-container" style="display: none;">
+                    <h3>Add New Student</h3>
+                    <form id="add-student-form">
+                        <div class="form-group">
+                            <label for="student-name">Full Name</label>
+                            <input type="text" id="student-name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="student-id">Student ID</label>
+                            <input type="text" id="student-id" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="student-class">Class/Grade</label>
+                            <input type="text" id="student-class" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="student-fee">Annual Fee (₹)</label>
+                            <input type="number" id="student-fee" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success">Save Student</button>
+                    </form>
+                </div>
+                
+                <!-- Students Table -->
+                <div class="card">
+                    <h3>Student Records</h3>
+                    <table id="students-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Class</th>
+                                <th>Total Fee</th>
+                                <th>Paid</th>
+                                <th>Due</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Sample Data -->
+                            <tr>
+                                <td>ST001</td>
+                                <td>Rahul Sharma</td>
+                                <td>10th</td>
+                                <td>₹25,000</td>
+                                <td>₹15,000</td>
+                                <td>₹10,000</td>
+                                <td>
+                                    <button class="btn btn-primary">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show different tabs
+        function showTab(tabId) {
+            // Hide all tabs
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('student-management').style.display = 'none';
+            
+            // Show selected tab
+            document.getElementById(tabId).style.display = 'block';
+        }
+        
+        // Show student form
+        function showStudentForm() {
+            document.getElementById('student-form').style.display = 'block';
+        }
+        
+        // Handle form submission
+        document.getElementById('add-student-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('student-name').value;
+            const studentId = document.getElementById('student-id').value;
+            const studentClass = document.getElementById('student-class').value;
+            const fee = document.getElementById('student-fee').value;
+            
+            // Add to table
+            const table = document.getElementById('students-table').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            
+            newRow.innerHTML = `
+                <td>${studentId}</td>
+                <td>${name}</td>
+                <td>${studentClass}</td>
+                <td>₹${fee}</td>
+                <td>₹0</td>
+                <td>₹${fee}</td>
+                <td>
+                    <button class="btn btn-primary">View</button>
+                </td>
+            `;
+            
+            // Reset form
+            this.reset();
+            document.getElementById('student-form').style.display = 'none';
+            
+            alert('Student added successfully!');
+        });
+        
+        // Initialize dashboard as default
+        showTab('dashboard');
+    </script>
+</body>
+</html>
